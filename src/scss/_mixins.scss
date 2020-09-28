@@ -7,7 +7,7 @@
   display: inline-block;
   color: rgba(0, 0, 0, .7);
 
-  & > span {
+  & i {
     font-size: 18px;
   }
 
@@ -19,8 +19,8 @@
     background: #eee;
     cursor: pointer;
   }
-
 }
+
 
 @mixin clear-list() {
   list-style: none;

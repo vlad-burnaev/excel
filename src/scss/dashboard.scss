@@ -2,6 +2,7 @@
 @import "mixins";
 
 .db {
+
   &__header {
     position: fixed;
     left: 0;
@@ -20,11 +21,6 @@
     margin-top: $db-header-height;
     padding: 1.5rem;
     background: #dadce0;
-  }
-
-  &__view {
-    max-width: 1000px;
-    margin: 0 auto;
   }
 
   &__create {
@@ -48,6 +44,11 @@
     }
   }
 
+  &__view {
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+
   &__table {
     padding: 1rem;
   }
@@ -63,7 +64,7 @@
   }
 
   &__list {
-    @include clear-list();
+    @include clear-list;
   }
 
   &__record {
@@ -76,7 +77,6 @@
     &:hover {
       background: #e6f4ea;
       border-radius: 25px;
-
     }
 
     a {
