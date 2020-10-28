@@ -28,7 +28,12 @@ export function nextSelector(key, {col, row}) {
       row = row + 1 > MAX_ROW_VALUE ? MAX_ROW_VALUE : row + 1
       break
     case 'Tab':
-      col = col + 1 > MAX_COL_VALUE ? MAX_COL_VALUE : col + 1
+      if (col + 1 > MAX_COL_VALUE && row !== MAX_ROW_VALUE) {
+        col = 0
+        row++
+      } else if (row !== MAX_ROW_VALUE) {
+        col++
+      }
       break
   }
   return `[data-id="${row}:${col}"`
