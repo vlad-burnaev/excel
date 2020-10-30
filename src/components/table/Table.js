@@ -3,6 +3,7 @@ import {createTable} from '@/components/table/table.template';
 import {resizeHandler} from '@/components/table/table.resize';
 import {isCell, matrix, nextSelector, shouldResize} from './table.functions';
 import {TableSelection} from '@/components/table/TableSelection';
+import * as actions from '@/redux/actions'
 import {$} from '@core/dom';
 
 export class Table extends ExcelComponent {
@@ -17,7 +18,7 @@ export class Table extends ExcelComponent {
   }
 
   toHTML() {
-    return createTable()
+    return createTable(this.store.getState())
   }
 
   prepare() {
@@ -37,9 +38,18 @@ export class Table extends ExcelComponent {
     this.$emit('table:select', $cell)
   }
 
+  async resizeTable(event) {
+    try {
+      const data = await resizeHandler(this.$root, event)
+      this.$dispatch(actions.tableResize(data))
+    } catch (e) {
+      console.error('Resize error: ', e.message)
+    }
+  }
+
   onMousedown(event) {
     if (shouldResize(event)) {
-      resizeHandler(this.$root, event)
+      this.resizeTable(event)
     }
     if (isCell(event)) {
       const $target = $(event.target)
@@ -49,7 +59,7 @@ export class Table extends ExcelComponent {
             .map(id => this.$root.find(`[data-id="${id}"]`))
         this.selection.selectGroup($cells)
       } else {
-        this.selection.select($target)
+        this.selectCell($target)
       }
     }
   }

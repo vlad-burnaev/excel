@@ -31,9 +31,10 @@ export function nextSelector(key, {col, row}) {
       if (col + 1 > MAX_COL_VALUE && row !== MAX_ROW_VALUE) {
         col = 0
         row++
-      } else if (row !== MAX_ROW_VALUE) {
-        col++
-      }
+      } else if (col + 1 > MAX_COL_VALUE && row === MAX_ROW_VALUE) {
+        col = 0
+        row = 0
+      } else col++
       break
   }
   return `[data-id="${row}:${col}"`
